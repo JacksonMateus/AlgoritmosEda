@@ -11,7 +11,7 @@ public class SelectionSort {
 		for(int fixo = 0;fixo < v.length-1;fixo++) {
 			int menor = fixo;
 			for (int i = menor + 1; i < v.length;i++) {
-				if (v[i] < v[menor]) {
+				if (v[menor] > v[i]) {
 					menor = i;
 				}
 			}
