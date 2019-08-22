@@ -29,5 +29,30 @@ public class BuscaBinariaRecursiva {
 			return -1;
 
 	}
+	private static Integer floor(int[] v, int e, int inicio, int fim) {
+		if (e > v[fim])
+			return v[fim];
+		if (e < v[0]) 
+			throw new RuntimeException("manda as parada certa");
+
+		Integer retorno = null;
+		if (fim >= inicio) {
+			int meio = (inicio + fim) / 2;
+			if (e == v[meio]) {
+				retorno = e;
+			}
+			else if (e < v[meio]) {
+				if (v[meio - 1] < e) {
+					retorno = v[meio - 1];
+				} else
+					retorno = floor(v, e, inicio, meio - 1);
+			}
+			else {
+				retorno = floor(v, e, meio + 1, fim);
+			} }
+		
+	
+		return retorno;
+	}
 
 }
