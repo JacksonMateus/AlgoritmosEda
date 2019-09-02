@@ -3,53 +3,57 @@ package algoritmos;
 import java.util.Arrays;
 
 public class MergeSort {
+	private static Integer[] tempMergArr;
+
 
 	public static void main(String[] args) {
-		int[] v = {4,6,7,3,5,1,2,6};
-		int[] vAux = new int[v.length];
-		mergeSort(v,vAux,0,v.length-1);
+		Integer[] v = { 4, 6, 7, 3, 5, 1, 2, 6 };
 		
+		mergeSort(v, 0, v.length - 1);
+
 		System.out.println(Arrays.toString(v));
 
 	}
 
-	private static void mergeSort(int[] v, int[] vAux, int inicio, int fim) {
+	private static void mergeSort(Integer[] v, int inicio, int fim) {
+		tempMergArr = Arrays.copyOf(v, v.length);		
+
 		if (fim > inicio) {
-			int meio = (inicio + fim)/2;
-			mergeSort(v, vAux, inicio, meio);
-			mergeSort(v,vAux,meio+1,fim);
-			intercalar(v,vAux,inicio,meio,fim);
+			int meio = (inicio + fim) / 2;
+			mergeSort(v, inicio, meio);
+			mergeSort(v, meio + 1, fim);
+			intercalar(v, inicio, meio, fim);
 		}
 	}
 
-	private static void intercalar(int[] v, int[] vAux, int inicio, int meio, int fim) {
-		for(int k=inicio;k <= fim;k++) {
-			vAux[k]=v[k];
-		}
-		
-		int i = inicio;
-		int j = meio + 1;
-		
-		for (int k = inicio; k <= fim;k++) {
-			if (i > meio) {
-				v[k] = vAux[j];
-				j++;
-			}
-			else if ( j > fim) {
-				v[k] = vAux[i];
-				i++;
-			}
-			else if (vAux[j] > vAux[i]) {
-				v[k] = vAux[i];
-				i++; }
-			else {
-				v[k] = vAux[j];
-				j++;
-			}
-			
-		}
-		
-		
-	}
+	private static void intercalar(Integer[] array, int leftIndex, int middle, int rightIndex) {
+		  for (int i = leftIndex; i <= rightIndex; i++) {
+			  tempMergArr[i] = array[i];
+  		}
+  		
+  		int i = leftIndex;
+  		int j = middle + 1;
+  		int k = leftIndex;
+  		
+  		while (i <= middle && j <= rightIndex) {
+  			
+  			if (tempMergArr[i].compareTo(tempMergArr[j]) < 0) {
+  				array[k] = tempMergArr[i];
+  				i++;
+  				
+  			} else {
+  				array[k] = tempMergArr[j];
+  				j++;
+  			}
+  			k++;
+  		}
+  		while (i <= middle) {
+  			array[k] = tempMergArr[i];
+  			k++;
+  			i++;
+  		}
+  
+  	}
+
 
 }
