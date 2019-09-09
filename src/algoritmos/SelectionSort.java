@@ -1,8 +1,13 @@
 package algoritmos;
 
+import java.util.Arrays;
+
 public class SelectionSort {
 
 	public static void main(String[] args) {
+		int[] v = {-2,4,1,4,6,0,3};
+		selectionSort(v);
+		System.out.println(Arrays.toString(v));
 
 		
 	}
@@ -15,7 +20,6 @@ public class SelectionSort {
 					menor = i;
 				}
 			}
-			if (menor != fixo) {
 				int aux = v[fixo];
 				v[fixo] = v[menor];
 				v[menor] = aux;
@@ -24,4 +28,4 @@ public class SelectionSort {
 		}
 	}
 
-}
+

@@ -4,9 +4,9 @@ import java.util.Arrays;
 
 public class BuscaBinariaRecursiva {
 	public static void main(String[] args) {
-		int[] v = { 0,1, 1, 1, 1, 1, 2, 2 };
-		
-		System.out.println(contaOcorrencias(v,2, 0, v.length-1));
+		int[] v = { 1, 1, 1, 4, 5, 5, 6, 7, 12 };
+
+		System.out.println(contaOcorrencias(v, 5));
 	}
 
 	private static int buscaBinaria(int[] v, int e) {
@@ -70,36 +70,84 @@ public class BuscaBinariaRecursiva {
 		return retorno;
 	}
 
-	public static Integer contaOcorrencias(int[] v, int e, int inicio, int fim) {
+	private static Integer ceil(int[] v, int e, int inicio, int fim) {
+		if (e < v[inicio])
+			return v[inicio];
+		if (e > v[fim]) {
+			throw new IllegalArgumentException("manda as parada certa");
+		}
+
 		Integer retorno = null;
 		if (fim >= inicio) {
-			int meio = (inicio + fim)/2;
-			if (v[meio] == e) {
-				int contaOcorrencias = 0;
+			int meio = (inicio + fim) / 2;
+			if (e == v[meio]) {
+				retorno = e;
+			} else if (e < v[meio]) {
+				retorno = ceil(v, e, inicio, meio - 1);
+			} else {
+				if (v[meio + 1] > e) {
+					retorno = v[meio + 1];
+				} else
+					retorno = ceil(v, e, meio + 1, fim);
+			}
+		}
 
-				if (v[meio - 1] == e) {
-					for (int i = inicio; i <= meio; i++) {
-						if (v[i] == e) {
-							contaOcorrencias += 1;
-						}
-					}
-				}
-				if (v[meio + 1] == e) {
-					for (int i = meio + 1; i <= fim; i++) {
-						if (v[i] == e) {
-							contaOcorrencias += 1;
-						}
-					}
-				}
-				
-				retorno = contaOcorrencias;
-			} else if (v[meio] > e)
-				retorno = contaOcorrencias(v, e, inicio, meio - 1);
-			else
-				retorno = contaOcorrencias(v, e, meio + 1, fim);
-
-		} else
-			retorno = 0;
 		return retorno;
 	}
+
+	public static int contaOcorrencias(int[] array, int e) {
+		int ocorrencias = 0;
+
+		int primeiraOcorrencia = primeiraOcorrencia(array, e, 0, array.length - 1);
+		int ultimaOcorrencia = ultimaOcorrencia(array, e, 0, array.length - 1);
+
+		if (primeiraOcorrencia != -1 && ultimaOcorrencia != -1) {
+			ocorrencias = ultimaOcorrencia - primeiraOcorrencia + 1;
+		}
+		return ocorrencias;
+
+	}
+
+	private static int primeiraOcorrencia(int[] array, int e, int inicio, int fim) {
+		int retorno = -1;
+		if (array[inicio] == e) {
+			retorno = inicio;
+		} else if (fim >= inicio) {
+			int meio = (inicio + fim) / 2;
+			if (array[meio] == e) {
+				if (array[meio - 1] != e) {
+					retorno = meio;
+				} else {
+					retorno = primeiraOcorrencia(array, e, inicio, meio - 1);
+				}
+			} else if (array[meio] > e) {
+				retorno = primeiraOcorrencia(array, e, inicio, meio - 1);
+			} else {
+				retorno = primeiraOcorrencia(array, e, meio + 1, fim);
+			}
+		}
+		return retorno;
+	}
+
+	private static int ultimaOcorrencia(int[] array, int e, int inicio, int fim) {
+		int retorno = -1;
+		if (e == array[fim]) {
+			retorno = fim;
+		} else if (fim >= inicio) {
+			int meio = (inicio + fim) / 2;
+			if (array[meio] == e) {
+				if (array[meio + 1] != e) {
+					retorno = meio;
+				} else {
+					retorno = ultimaOcorrencia(array, e, meio + 1, fim);
+				}
+			} else if (array[meio] > e) {
+				retorno = ultimaOcorrencia(array, e, inicio, meio - 1);
+			} else {
+				retorno = ultimaOcorrencia(array, e, meio + 1, fim);
+			}
+		}
+		return retorno;
+	}
+
 }
