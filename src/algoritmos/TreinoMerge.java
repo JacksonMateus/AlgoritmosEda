@@ -5,7 +5,7 @@ import java.util.Arrays;
 public class TreinoMerge {
 
 	public static void main(String[] args) {
-		Integer[] v = { 4, 6, 7, 3, 5, 1, 0, 6 };
+		Integer[] v = { 4, 6, 7, 3, 5, 1, 2, 6 };
 		mergeSort(v, 0, v.length - 1);
 		System.out.println(Arrays.toString(v));
 

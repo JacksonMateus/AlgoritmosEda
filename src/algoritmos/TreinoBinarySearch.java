@@ -3,7 +3,7 @@ package algoritmos;
 public class TreinoBinarySearch {
 
 	public static void main(String[] args) {
-		Integer[] v = { 1, 3, 4, 6, 7, 9 };
+		Integer[] v = {1, 3, 4, 6, 7, 9 };
 		System.out.println(floorSearch(v, 0));
 	}
 
