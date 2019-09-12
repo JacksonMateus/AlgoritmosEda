@@ -2,7 +2,7 @@ package algoritmos;
 
 import java.util.Arrays;
 
-public class MergeSort {
+public class TreinoMerge {
 
 	public static void main(String[] args) {
 		Integer[] v = { 4, 6, 7, 3, 5, 1, 0, 6 };
@@ -12,11 +12,14 @@ public class MergeSort {
 	}
 
 	private static void mergeSort(Integer[] v, int inicio, int fim) {
-		if (fim > inicio) {
-			int meio = (inicio + fim) / 2;
-			mergeSort(v, inicio, meio);
-			mergeSort(v, meio + 1, fim);
-			intercalar(v, inicio, meio, fim);
+		if (v != null && inicio >= 0 && fim < v.length) {
+			if (fim > inicio) {
+
+				int meio = (inicio + fim) / 2;
+				mergeSort(v, inicio, meio);
+				mergeSort(v, meio + 1, fim);
+				intercalar(v, inicio, meio, fim);
+			}
 		}
 	}
 
@@ -44,7 +47,8 @@ public class MergeSort {
 		while (i <= middle) {
 			array[k] = tempMergArr[i];
 			k++;
-			i++; }
+			i++;
+		}
 
 	}
 
